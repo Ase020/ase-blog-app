@@ -1,7 +1,54 @@
+import Image from "next/image";
 import styles from "./navbar.module.css";
+import Link from "next/link";
+import { AuthLinks, ThemeToggle } from "..";
 
 const Navbar = () => {
-  return <div className={styles.container}>Navbar</div>;
+  return (
+    <div className={styles.container}>
+      <div className={styles.socials}>
+        <Image
+          src="/facebook.png"
+          alt="facebook"
+          width={24}
+          height={24}
+          className={styles.socialLinks}
+        />
+        <Image
+          src="/instagram.png"
+          alt="instagram"
+          width={24}
+          height={24}
+          className={styles.socialLinks}
+        />
+        <Image
+          src="/youtube.png"
+          alt="youtube"
+          width={24}
+          height={24}
+          className={styles.socialLinks}
+        />
+        <Image
+          src="/tiktok.png"
+          alt="tiktok"
+          width={24}
+          height={24}
+          className={styles.socialLinks}
+        />
+      </div>
+
+      <Link href="/" className={styles.logo}>
+        aseJots
+      </Link>
+      <div className={styles.links}>
+        <ThemeToggle />
+        <Link href="/">Home</Link>
+        <Link href="/">Contact</Link>
+        <Link href="/">About</Link>
+        <AuthLinks />
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;
