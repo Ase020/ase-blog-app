@@ -1,6 +1,6 @@
 :root {
   --bg: white;
-  --text-color: black;
+  --textColor: black;
   --softBg: #f0f0f0;
   --softTextColor: #626262;
 }
@@ -21,6 +21,13 @@ a {
   text-decoration: none;
 }
 
+.light {
+  --bg: white;
+  --textColor: black;
+  --softBg: #f0f0f0;
+  --softTextColor: #626262;
+}
+
 .dark {
   --bg: #0f172a;
   --textColor: #ddd;
@@ -31,7 +38,7 @@ a {
 .container {
   min-height: 100vh;
   background-color: var(--bg);
-  color: var(--text-color);
+  color: var(--textColor);
 }
 
 .wrapper {
@@ -70,5 +77,6 @@ a {
 @media screen and (max-width: 640px) {
   .wrapper {
     max-width: 475px;
+    padding-inline: 10px;
   }
 }

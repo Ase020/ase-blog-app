@@ -34,3 +34,40 @@
   gap: 20px;
   font-size: 20px;
 }
+
+@media screen and (max-width: 1280px) {
+  .logo {
+    font-size: 32px;
+  }
+
+  .links {
+    font-size: 18px;
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .logo {
+    text-align: left;
+  }
+
+  .socials {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .links {
+    justify-content: flex-end;
+  }
+
+  .link {
+    display: none;
+  }
+}
