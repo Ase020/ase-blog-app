@@ -7,6 +7,7 @@ import { default as CategoryList } from "./categoryList/CategoryList";
 import { default as Menu } from "./menu/Menu";
 import { default as ThemeToggle } from "./themeToggle/ThemeToggle";
 import { default as AuthLinks } from "./authLinks/AuthLinks";
+import { default as Card } from "./card/Card";
 
 export {
   Navbar,
@@ -18,4 +19,5 @@ export {
   Pagination,
   ThemeToggle,
   AuthLinks,
+  Card,
 };
