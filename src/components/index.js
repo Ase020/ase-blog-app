@@ -8,6 +8,8 @@ import { default as Menu } from "./menu/Menu";
 import { default as ThemeToggle } from "./themeToggle/ThemeToggle";
 import { default as AuthLinks } from "./authLinks/AuthLinks";
 import { default as Card } from "./card/Card";
+import { default as MenuPosts } from "./menuPosts/MenuPosts";
+import { default as MenuCategories } from "./menuCategories/MenuCategories";
 
 export {
   Navbar,
@@ -20,4 +22,6 @@ export {
   ThemeToggle,
   AuthLinks,
   Card,
+  MenuPosts,
+  MenuCategories,
 };

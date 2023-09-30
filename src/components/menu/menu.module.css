@@ -1,4 +1,14 @@
 .container {
   flex: 2;
-  border: 1px solid lightgreen;
+  margin-top: 60px;
+}
+
+.subTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: gray;
+}
+
+.title {
+  font-size: 28px;
 }
