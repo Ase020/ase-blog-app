@@ -1,0 +1,90 @@
+.container {
+  margin-top: 50px;
+}
+
+.title {
+  color: var(--softTextColor);
+  margin-bottom: 30px;
+}
+
+.write {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.input {
+  padding: 20px;
+  width: 100%;
+  outline: none;
+}
+
+.button {
+  padding: 16px 20px;
+  background: teal;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comments {
+  margin-top: 50px;
+  max-height: 800px;
+  overflow-y: scroll;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.comments::-webkit-scrollbar {
+  width: 0;
+}
+
+.comments::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.comment {
+  margin-bottom: 50px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.image {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--softTextColor);
+}
+
+.username {
+  font-weight: 500;
+}
+
+.date {
+  font-size: 14px;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+@media screen and (max-width: 640px) {
+  .comments {
+    max-height: 400px;
+  }
+}

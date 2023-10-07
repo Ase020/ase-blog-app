@@ -10,6 +10,7 @@ import { default as AuthLinks } from "./authLinks/AuthLinks";
 import { default as Card } from "./card/Card";
 import { default as MenuPosts } from "./menuPosts/MenuPosts";
 import { default as MenuCategories } from "./menuCategories/MenuCategories";
+import { default as Comments } from "./comments/Comments";
 
 export {
   Navbar,
@@ -24,4 +25,5 @@ export {
   Card,
   MenuPosts,
   MenuCategories,
+  Comments,
 };
