@@ -1,13 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 import styles from "./write.module.css";
+import { app } from "@/utils/firebase";
 
 const Write = () => {
   const { status } = useSession();
@@ -15,6 +22,73 @@ const Write = () => {
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [file, setFile] = useState(null);
+  const [media, setMedia] = useState("");
+  const [title, setTitle] = useState("");
+  const [catSlug, setCatSlug] = useState("");
+
+  useEffect(() => {
+    const storage = getStorage(app);
+    const upload = () => {
+      const name = new Date().getTime() + file.name;
+      const storageRef = ref(storage, name);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log(downloadURL);
+            setMedia(downloadURL);
+          });
+        }
+      );
+    };
+
+    file && upload();
+  }, [file]);
+
+  // convert Title to slug
+  const slugify = (str) =>
+    str
+      .toString()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  const handleSubmit = async () => {
+    const res = await fetch("http://localhost:3000/api/posts", {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        desc: value,
+        img: media,
+        slug: slugify(title),
+        catSlug: catSlug || "style", //If not selected, choose the general category
+      }),
+    });
+
+    console.log(res);
+  };
 
   if (status === "loading") {
     return <div className={styles.loading}>Loading...</div>;
@@ -25,7 +99,24 @@ const Write = () => {
   }
   return (
     <div className={styles.container}>
-      <input type="text" placeholder="Title" className={styles.title} />
+      <input
+        type="text"
+        placeholder="Title"
+        className={styles.title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      <select
+        className={styles.select}
+        onChange={(e) => setCatSlug(e.target.value)}
+      >
+        <option value="style">style</option>
+        <option value="fashion">fashion</option>
+        <option value="food">food</option>
+        <option value="culture">culture</option>
+        <option value="travel">travel</option>
+        <option value="coding">coding</option>
+      </select>
 
       <div className={styles.editor}>
         <button
@@ -37,8 +128,16 @@ const Write = () => {
 
         {open && (
           <div className={styles.add}>
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              id="image"
+              style={{ display: "none" }}
+            />
             <button className={styles.addButton}>
-              <Image src="/image.png" alt="plus" width={16} height={16} />
+              <label htmlFor="image">
+                <Image src="/image.png" alt="plus" width={16} height={16} />
+              </label>
             </button>
 
             <button className={styles.addButton}>
@@ -60,7 +159,7 @@ const Write = () => {
         />
       </div>
 
-      <button type="submit" className={styles.publish}>
+      <button type="submit" className={styles.publish} onClick={handleSubmit}>
         Publish
       </button>
     </div>
